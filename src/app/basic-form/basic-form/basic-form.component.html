@@ -1,18 +1,70 @@
-<form [formGroup]="form">
-  <div class="form-group">
-    <label  for="firstNameInput">First Name</label>
-    <input  type="text"
-            class="form-control"
-            id="firstNameInput"
-            placeholder="Enter first name">
-  </div>
-  <div class="form-group">
-    <label  for="lastNameInput">Last Name</label>
-    <input  type="text"
-            class="form-control"
-            id="lastNameInput"
-            placeholder="Enter last name">
-  </div>
-</form>
+<div class="container mt-5">
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label  class="font-weight-bold" for="firstNameInput">First Name:</label>
+      <input  type="text"
+              class="form-control"
+              id="firstNameInput"
+              placeholder="Enter first name"
+              formControlName="firstName"/>
+        <span class="text-danger" *ngIf="form.get('firstName').errors?.required && form.get('firstName').dirty">*This field is required</span>
+        <span class="text-danger" *ngIf="form.get('firstName').errors?.minlength && form.get('firstName').dirty">*The minimum length of field is 3 characters</span>
+    </div>
+    <div class="form-group">
+      <label  class="font-weight-bold" for="lastNameInput">Last Name:</label>
+      <input  type="text"
+              class="form-control"
+              id="lastNameInput"
+              placeholder="Enter last name"
+              formControlName="lastName"/>
+        <span class="text-danger" *ngIf="form.get('lastName').errors?.required && form.get('lastName').dirty">*This field is required</span>
+    </div>
 
-{{form.value | json}}
+    <div class="form-group form-check">
+      <input class="form-check-input" formControlName="isExperienced" type="checkbox">
+      <label class="form-check-label">I have experience over 2 years </label>
+      <span class="text-danger" *ngIf="form.get('isExperienced').errors?.required && form.get('isExperienced').dirty">*This field is required</span>
+    </div>
+
+    <div class="form-group">
+      <label class="font-weight-bold">Angular Preference</label>
+      <div class="form-check">
+        <input  class="form-check-input"
+                type="radio"
+                formControlName="angular"
+                value="1"
+                id="angularjs">
+        <label class="form-check-label" for="angularjs">angularJs</label>
+      </div>
+  
+      <div class="form-check">
+        <input  class="form-check-input"
+                type="radio"
+                formControlName="angular"
+                value="2"
+                id="angular">
+        <label class="form-check-label" for="angular">angular</label>
+        <span class="text-danger" *ngIf="form.get('angular').errors?.required && form.get('angular').dirty">*This field is required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="font-weight-bold">Favourite Language</label>
+      <select class="form-control" formControlName="favouriteLanguage">
+        <option [ngValue]="null">Select</option>
+        <option *ngFor="let prom of programmingLanguages" [ngValue]="prom">
+          {{prom}}
+        </option>
+      </select>
+      <span class="text-danger" *ngIf="form.get('favouriteLanguage').errors?.required && form.get('favouriteLanguage').dirty">*This field is required</span>
+    </div>
+
+    <div class="form-group" ng-disabled="$favouriteLanguage.value == 'JS'">
+      <label class="font-weight-bold">JS Version</label>
+      <input formControlName="jsversion" class="form-control" type="text">
+      <span class="text-danger" *ngIf="form.get('jsversion').errors?.required && form.get('jsversion').dirty">*This field is required</span>
+    </div>
+
+    <button class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+  </form>
+</div>

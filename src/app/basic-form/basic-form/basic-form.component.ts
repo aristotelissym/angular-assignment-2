@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, Form } from '@angular/forms';
+import { __values } from 'tslib';
 
 @Component({
   selector: 'app-basic-form',
@@ -12,13 +13,6 @@ export class BasicFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {}
 
-  formSubmit(form: FormGroup) {
-    if (!form.valid) {
-      return;
-    }
-    console.log(form.value);
-  }
-
   ngOnInit() {
     this.form = this.fb.group({
       firstName: [null, [Validators.required, Validators.minLength(3)]],
@@ -27,7 +21,7 @@ export class BasicFormComponent implements OnInit {
       angular: [null, Validators.required],
       favouriteLanguage: [null, Validators.required],
       jsversion: [null, Validators.required],
-    });  
+    });
     
     this.form.get('favouriteLanguage').valueChanges.subscribe(value => {
 

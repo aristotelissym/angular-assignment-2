@@ -64,7 +64,7 @@
       <input formControlName="jsversion" class="form-control" type="text">
       <span class="text-danger" *ngIf="form.get('jsversion').errors?.required && form.get('jsversion').dirty">*This field is required</span>
     </div>
-
-    <button class="btn btn-primary" [disabled]="!form.valid" ng-click="console.log(form.value)">Submit</button>
+    
+    <button class="btn btn-primary" [disabled]="!form.valid" (click)="onSubmit(form)">Submit</button>
   </form>
 </div>

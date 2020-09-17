@@ -34,7 +34,10 @@ export class BasicFormComponent implements OnInit {
       }
       jsVersionFormControl.updateValueAndValidity();
     });
+  }
 
+  onSubmit() {
+    console.log(this.form.value);
   }
 
 }
